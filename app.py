@@ -41,6 +41,20 @@ if api_key:
             response = gemini.send_message(prompt)
             st.markdown("### 📜 Question")
             st.code(response.strip(), language="markdown")
+
+    # ------------------------- User Custom Prompt Section -------------------------
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.subheader("✍️ Ask Your Own DSA Doubt")
+    user_prompt = st.text_area("Enter your DSA-related question or concept you need help with:")
+    
+    if st.button("💬 Ask Gemini"):
+        if user_prompt.strip():
+            with st.spinner("Gemini is thinking..."):
+                custom_response = gemini.send_message(user_prompt)
+                st.markdown("### 🧠 Gemini's Answer")
+                st.write(custom_response.strip())
+        else:
+            st.warning("Please enter a valid prompt.")
 else:
     st.warning("Please enter your API key in the sidebar to continue.")
 ''')
