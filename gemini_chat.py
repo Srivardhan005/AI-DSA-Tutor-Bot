@@ -1,5 +1,3 @@
-with open("gemini_chat.py", "w") as f:
-    f.write('''
 import google.generativeai as genai
 
 class GeminiChat:
@@ -11,4 +9,3 @@ class GeminiChat:
     def send_message(self, prompt):
         response = self.chat.send_message(prompt)
         return response.text
-''')
