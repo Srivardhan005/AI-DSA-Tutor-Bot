@@ -3,44 +3,42 @@ with open("app.py", "w") as f:
 import streamlit as st
 from gemini_chat import GeminiChat
 
-st.set_page_config(page_title="DSA Tutor", layout="centered")
+# ------------------------- UI Config -------------------------
+st.set_page_config(page_title="AI DSA Tutor Bot", layout="centered")
+st.markdown("<h1 style='text-align: center; color: #4CAF50;'>🤖 AI DSA Tutor Bot</h1>", unsafe_allow_html=True)
+st.markdown("<hr>", unsafe_allow_html=True)
 
-# ------------------ UI Header ------------------
-st.title("📘 AI DSA Tutor")
-st.markdown("Get DSA questions and solutions powered by Gemini!")
+# ------------------------- Sidebar -------------------------
+st.sidebar.header("🔐 Gemini API Key")
+api_key = st.sidebar.text_input("Enter your Gemini API Key", type="password")
 
-# ------------------ API Key Input ------------------
-api_key = st.text_input("🔑 Enter your Gemini API Key", type="password")
+st.sidebar.markdown("### ℹ️ About")
+st.sidebar.info(
+    "AI DSA Tutor Bot helps you learn Data Structures & Algorithms through topic-specific questions. "
+    "Built using **Google Gemini API**, **Streamlit**, and **Python**.\n\n"
+    "Crafted with ❤️ by Srivardhan."
+)
 
+st.sidebar.markdown("### 💡 Prompt Tips")
+st.sidebar.success(
+    "- Select a topic & difficulty\n"
+    "- Click 'Get Question'\n"
+    "- Ask for explanations too!"
+)
+
+# ------------------------- Main Section -------------------------
 if api_key:
     gemini = GeminiChat(api_key=api_key)
 
-    # ------------------ Topic Dropdown ------------------
-    topic = st.selectbox("📂 Select DSA Topic", [
-        "Arrays", "Linked List", "Stacks", "Queues",
-        "Trees", "Graphs", "Searching", "Sorting",
-        "Dynamic Programming", "Greedy Algorithms"
-    ])
+    topic = st.selectbox("📘 Select a Topic", ["Array", "Linked List", "Stack", "Queue", "Tree", "Graph", "Sorting", "Searching", "DP", "Recursion"])
+    difficulty = st.radio("🧠 Choose Difficulty", ["Easy", "Medium", "Hard"], horizontal=True)
 
-    # ------------------ Level Selector ------------------
-    level = st.radio("📊 Choose Difficulty", ["Easy", "Medium"])
-
-    # ------------------ Question Prompt + Button ------------------
-    if st.button("🎯 Generate Sample Question"):
-        prompt = f"Give me a {level} level coding problem on {topic}. Return only the problem statement."
-        question = gemini.send_message(prompt)
-        st.subheader("🧩 Question")
-        st.markdown(question)
-
-    # ------------------ User Custom Prompt ------------------
-    user_prompt = st.text_area("✍️ Ask anything else:")
-    if st.button("💬 Ask Gemini"):
-        if user_prompt.strip():
-            response = gemini.send_message(user_prompt)
-            st.subheader("📜 Answer")
-            st.markdown(response)
-        else:
-            st.warning("Please enter a question.")
+    if st.button("🚀 Get Question"):
+        with st.spinner("Thinking..."):
+            prompt = f"Generate a {difficulty} level DSA coding question on the topic {topic}. Only give the question."
+            response = gemini.send_message(prompt)
+            st.markdown("### 📜 Question")
+            st.code(response.strip(), language="markdown")
 else:
-    st.warning("Please enter your API key to start.")
+    st.warning("Please enter your API key in the sidebar to continue.")
 ''')
