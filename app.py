@@ -13,16 +13,18 @@ st.sidebar.header("🔐 Gemini API Key")
 api_key = st.sidebar.text_input("Enter your Gemini API Key", type="password")
 
 st.sidebar.markdown("### ℹ️ About")
-st.sidebar.info(
-    "AI DSA Tutor Bot helps you learn Data Structures & Algorithms through topic-specific questions. "
-    "Built using **Google Gemini API**, **Streamlit**, and **Python**.\n\n"
-    "Crafted with ❤️ by Srivardhan."
-)
+st.sidebar.info(\"\"\"
+AI DSA Tutor Bot helps you learn Data Structures & Algorithms through topic-specific questions.
+
+Built using **Google Gemini API**, **Streamlit**, and **Python**.
+
+Crafted with ❤️ by Srivardhan.
+\"\"\")
 
 st.sidebar.markdown("### 💡 Prompt Tips")
 st.sidebar.success(
-    "- Select a topic & difficulty\n"
-    "- Click 'Get Question'\n"
+    "- Select a topic & difficulty\\n"
+    "- Click 'Get Question'\\n"
     "- Ask for explanations too!"
 )
 
