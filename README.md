@@ -50,7 +50,7 @@ streamlit run app.py
 
 ## 🌐 Live App
 
-👉 Deployed on Streamlit Cloud: [Add your live link here after deployment]
+👉 Deployed on Streamlit Cloud: https://ai-dsa-tutor-bot-atndmhv4apsjumhmcmw4hq.streamlit.app/
 
 ---
 
